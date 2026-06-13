@@ -194,7 +194,7 @@ Add a PostgreSQL read replica, route historical/analytics queries to it, and del
 
 # 10. Engineering Concepts Per Milestone
 
-**Milestone 1** — Relational schema design, normalization, REST API design conventions, connection pooling, basic auth (JWT/sessions), Docker Compose basics for multi-container local dev.
+**Milestone 1 (COMPLETE)** — Relational schema design, normalization, REST API design conventions, connection pooling, basic auth (JWT/sessions), Docker Compose basics for multi-container local dev.
 
 **Milestone 2** — Working with third-party APIs under rate limits, scheduled jobs (cron vs. interval), idempotent writes (avoiding duplicate price entries), basic retry/backoff strategies, error handling for unreliable dependencies.
 
