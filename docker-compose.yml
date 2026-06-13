@@ -60,5 +60,20 @@ services:
       redis:
         condition: service_healthy
 
+  websocket-gateway:
+    build: ./websocket-gateway
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: dev-secret
+    volumes:
+      - ./websocket-gateway:/app
+      - /app/node_modules
+    depends_on:
+      redis:
+        condition: service_healthy
+
 volumes:
   pgdata:
