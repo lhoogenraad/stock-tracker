@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:16
+    image: postgres:16-alpine
     environment:
       POSTGRES_DB: stockapp
       POSTGRES_USER: app
@@ -9,15 +9,27 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d stockapp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   api:
-    build: .
+    build: ./api
     ports:
       - "3000:3000"
     environment:
       DATABASE_URL: postgres://app:app@postgres:5432/stockapp
+      PORT: 3000
+      JWT_SECRET: dev-secret
+    volumes:
+      - ./api:/app
+      - /app/node_modules
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    command: sh -c "npm run migrate:latest && npm run dev && npm run seed:run"
 
 volumes:
   pgdata:
