@@ -31,5 +31,18 @@ services:
         condition: service_healthy
     command: sh -c "npm run migrate:latest && npm run seed:run && npm run dev"
 
+  ingestion-service:
+    build: ./ingestion-service
+    environment:
+      DATABASE_URL: postgres://app:app@postgres:5432/stockapp
+      FINNHUB_API_KEY: ${FINNHUB_API_KEY}
+      POLL_INTERVAL_MS: 10000
+    volumes:
+      - ./ingestion-service:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
   pgdata:
