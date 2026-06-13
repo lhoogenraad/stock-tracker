@@ -74,6 +74,18 @@ services:
     depends_on:
       redis:
         condition: service_healthy
+  
+  client:
+    build: ./client
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:3000
+      VITE_WS_URL: ws://localhost:4000
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
 
 volumes:
   pgdata:
