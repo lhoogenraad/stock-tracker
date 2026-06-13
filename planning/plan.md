@@ -196,7 +196,7 @@ Add a PostgreSQL read replica, route historical/analytics queries to it, and del
 
 **Milestone 1 (COMPLETE)** — Relational schema design, normalization, REST API design conventions, connection pooling, basic auth (JWT/sessions), Docker Compose basics for multi-container local dev.
 
-**Milestone 2** — Working with third-party APIs under rate limits, scheduled jobs (cron vs. interval), idempotent writes (avoiding duplicate price entries), basic retry/backoff strategies, error handling for unreliable dependencies.
+**Milestone 2 (COMPLETE)** — Working with third-party APIs under rate limits, scheduled jobs (cron vs. interval), idempotent writes (avoiding duplicate price entries), basic retry/backoff strategies, error handling for unreliable dependencies.
 
 **Milestone 3** — Cache-aside pattern, cache invalidation strategies, TTL design, the tradeoff between staleness and load reduction, measuring cache effectiveness.
 
