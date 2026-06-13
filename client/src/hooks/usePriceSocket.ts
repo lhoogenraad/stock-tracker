@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAuthStore } from '../store/authStore';
 import { usePriceStore } from '../store/priceStore';
 
@@ -8,6 +8,7 @@ export function usePriceSocket(symbols: string[]) {
   const token = useAuthStore((s) => s.token);
   const setPrice = usePriceStore((s) => s.setPrice);
   const wsRef = useRef<WebSocket | null>(null);
+  const [connected, setConnected] = useState(false);
 
   useEffect(() => {
     if (!token || symbols.length === 0) return;
@@ -16,6 +17,7 @@ export function usePriceSocket(symbols: string[]) {
     wsRef.current = ws;
 
     ws.onopen = () => {
+      setConnected(true);
       ws.send(JSON.stringify({ type: 'subscribe', symbols }));
     };
 
@@ -31,11 +33,13 @@ export function usePriceSocket(symbols: string[]) {
     };
 
     ws.onclose = () => {
-      console.log('WebSocket disconnected');
+      setConnected(false);
     };
 
     return () => {
       ws.close();
     };
   }, [token, symbols.join(',')]);
+
+  return { connected };
 }

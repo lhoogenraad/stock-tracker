@@ -91,3 +91,20 @@ export async function removeItemHandler(req: AuthRequest, res: Response, next: N
     next(err);
   }
 }
+
+
+export async function listItemsHandler(req: AuthRequest, res: Response, next: NextFunction) {
+  try {
+    const watchlistId = Number(req.params.id);
+
+    const watchlist = await getWatchlistById(watchlistId, req.userId!);
+    if (!watchlist) {
+      return res.status(404).json({ error: 'Watchlist not found' });
+    }
+
+    const items = await getWatchlistItems(watchlistId);
+    res.json(items);
+  } catch (err) {
+    next(err);
+  }
+}

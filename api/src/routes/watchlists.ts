@@ -8,6 +8,7 @@ import {
   deleteWatchlistHandler,
   addItemHandler,
   removeItemHandler,
+  listItemsHandler,
 } from '../controllers/watchlistController';
 
 export const watchlistRouter = Router();
@@ -19,3 +20,4 @@ watchlistRouter.post('/', validateBody(createWatchlistSchema), createWatchlistHa
 watchlistRouter.delete('/:id', deleteWatchlistHandler);
 watchlistRouter.post('/:id/items', validateBody(addItemSchema), addItemHandler);
 watchlistRouter.delete('/:id/items/:symbol', removeItemHandler);
+watchlistRouter.get('/:id/items', listItemsHandler);
